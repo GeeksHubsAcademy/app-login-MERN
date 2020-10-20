@@ -8,7 +8,6 @@ const Login = () => {
             email:event.target.email.value,
             password:event.target.password.value
         };
-        console.log(user);
         axios.post('http://localhost:3001/users/login',user)
         .then(res=>{
             console.log(res)

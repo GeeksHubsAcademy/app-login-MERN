@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
-import bcrypt from 'bcryptjs'
+import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
 const UserSchema = new mongoose.Schema({
     name: String,
     email: {
@@ -18,14 +19,19 @@ UserSchema.pre('save', async function(next) {
     user.password = await bcrypt.hash(user.password, 9);
     next()
 });
-UserSchema.statics.checkCredentials = function(credentials) {
-    const user = this.findOne({
+UserSchema.statics.checkCredentials = async function(credentials) {
+    const user = await this.findOne({
         email: credentials.email
     });
     if (!user) return null;
-    const isMatch = bcrypt.compare(credentials.password, user.password);
+    const isMatch = await bcrypt.compare(credentials.password, user.password);
     if (!isMatch) return null;
     return user;
+}
+UserSchema.methods.generateAuthToken = function() {
+    const user = this;
+    const token = jwt.sign({ _id: user._id }, 'mimamamemimamucho', { expiresIn: '2y' });
+    return token;
 }
 const UserModel = mongoose.model('User', UserSchema);
 export default UserModel
