@@ -1,0 +1,28 @@
+{
+    "name": "app-login-MERN",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "back:dev": "cd backend && npm run dev ",
+        "front:dev": "cd frontend && npm start ",
+        "dev": "concurrently \"npm run back:dev\" \"npm run front:dev\"",
+        "back:install": "cd backend && npm install ",
+        "front:install": "cd frontend && npm install ",
+        "postinstall": "concurrently \"npm run back:install\" \"npm run front:install\""
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/GeeksHubsAcademy/app-login-MERN.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/GeeksHubsAcademy/app-login-MERN/issues"
+    },
+    "homepage": "https://github.com/GeeksHubsAcademy/app-login-MERN#readme",
+    "dependencies": {
+        "concurrently": "^5.3.0"
+    }
+}

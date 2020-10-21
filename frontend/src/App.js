@@ -5,7 +5,8 @@ import Footer from './components/Footer/Footer';
 import Header from './components/Header/Header';
 import Home from './containers/Home/Home';
 import Login from './containers/Login/Login';
-
+import 'antd/dist/antd.css';
+import Register from './containers/Register/Register';
 function App() {
   return (
     <BrowserRouter>
@@ -13,6 +14,7 @@ function App() {
       <Switch>
         <Route path='/' component={Home} exact/>
         <Route path='/login' component={Login} exact/>
+        <Route path='/register' component={Register} exact/>
       </Switch>
       <Footer />
     </BrowserRouter>

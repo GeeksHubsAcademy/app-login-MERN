@@ -1,5 +1,5 @@
 import React from 'react';
-import axios from 'axios'
+import axios from 'axios';
 import './Login.scss';
 const Login = () => {
     const handleSubmit = event =>{
@@ -10,7 +10,7 @@ const Login = () => {
         };
         axios.post('http://localhost:3001/users/login',user)
         .then(res=>{
-            console.log(res)
+            console.log(res.data)
         })
         .catch(error=>console.log(error.response.data))
     }
