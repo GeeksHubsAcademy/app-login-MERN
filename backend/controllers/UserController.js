@@ -16,8 +16,8 @@ const UserController = {
                     message: 'Wrong Credentials'
                 });
             }
-            user.generateAuthToken()
-            res.send(user)
+            const token = user.generateAuthToken();
+            res.send({ user, token });
         } catch (error) {
             res.status(400).send(error)
         }
