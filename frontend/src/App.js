@@ -8,6 +8,9 @@ import Login from './containers/Login/Login';
 import 'antd/dist/antd.css';
 import Register from './containers/Register/Register';
 import axios from 'axios';
+import Profile from './containers/Profile/Profile';
+import PrivateZone from './guards/PrivateZone';
+import Error404 from './containers/Error404/Error404.jsx';
 function App() {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')));
   useEffect(() => {
@@ -29,6 +32,11 @@ function App() {
         <Route path='/' component={Home} exact />
         <Route path='/login' exact ><Login setUser={setUser} /></Route>
         <Route path='/register' component={Register} exact />
+        <PrivateZone  user={user}>
+          <Route path='/profile' exact component={Profile} />
+        </PrivateZone>
+        
+        <Route path='/*' component={Error404} exact />
       </Switch>
       <Footer />
     </BrowserRouter>
