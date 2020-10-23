@@ -4,9 +4,9 @@
 
 ## How to use
 
-Install de dependecies
+### Install de dependecies
 npm install
 
-Run developer mode
+### Run developer mode
 npm run dev
 
