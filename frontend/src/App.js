@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Switch, BrowserRouter, Route } from 'react-router-dom'
 import './App.css';
-import Footer from './components/Footer/Footer';
+// import Footer from './components/Footer/Footer';
 import Header from './components/Header/Header';
 import Home from './containers/Home/Home';
 import Login from './containers/Login/Login';
@@ -11,7 +11,10 @@ import axios from 'axios';
 import Profile from './containers/Profile/Profile';
 import PrivateZone from './guards/PrivateZone';
 import Error404 from './containers/Error404/Error404.jsx';
+import UserList from './containers/UserList/UserList';
+import CheckPrivileges from './guards/CheckPrivileges';
 function App() {
+  console.log(process.env.REACT_APP_BASE_URL);
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')));
   useEffect(() => {
     const token = localStorage.getItem('authToken')
@@ -32,14 +35,17 @@ function App() {
         <Route path='/' component={Home} exact />
         <Route path='/login' exact ><Login setUser={setUser} /></Route>
         <Route path='/register' component={Register} exact />
-        <PrivateZone  user={user}>
-          <Route path='/profile' exact component={Profile} />
+        <PrivateZone user={user}>
+          <CheckPrivileges user={user} roles={['admin', 'Dios']}>
+            <Route path='/profile' exact><Profile user={user} /></Route>
+          </CheckPrivileges>
+          <Route path='/users' component={UserList} exact />
         </PrivateZone>
-        
+
         <Route path='/*' component={Error404} exact />
       </Switch>
-      <Footer />
-    </BrowserRouter>
+      {/* <Footer /> */}
+    </BrowserRouter >
   );
 }
 

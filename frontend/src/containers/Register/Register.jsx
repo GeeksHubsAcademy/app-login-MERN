@@ -17,7 +17,7 @@ const tailLayout = {
 };
 const Register = () => {
     const onFinish = (user) => {
-        axios.post('http://localhost:3001/users/register', user)
+        axios.post(process.env.REACT_APP_BASE_URL+'/users/register', user)
             .then(res => {
                 console.log(res.data)
                 notification.success({ message :'Usuario registrado',description:'Usuario registrado con éxito'})

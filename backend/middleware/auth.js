@@ -3,7 +3,7 @@ import UserModel from '../models/User.js';
 
 const auth = async(req, res, next) => {
     try {
-        const token = req.headers.authorization
+        const token = req.headers.authorization;
         const payload = jwt.verify(token, 'mimamamemimamucho');
         const user = await UserModel.findById(payload._id);
         if (!user) {

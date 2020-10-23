@@ -3,7 +3,8 @@ import axios from 'axios';
 import {useHistory} from 'react-router-dom'
 import './Login.scss';
 import {notification} from 'antd'
-const Login = ({setUser}) => {
+// const Login = (props) => {
+    const Login = ({setUser}) => {
     const history = useHistory();
     const handleSubmit = event =>{
         event.preventDefault(); // para evitar refrescar la página
@@ -11,8 +12,9 @@ const Login = ({setUser}) => {
             email:event.target.email.value,
             password:event.target.password.value
         };
-        axios.post('http://localhost:3001/users/login',user)
+        axios.post(process.env.REACT_APP_BASE_URL+'/users/login',user)
         .then(res=>{
+         // props.setUser(res.data.user) //seteo el user como estado del App.js
             setUser(res.data.user) //seteo el user como estado del App.js
             localStorage.setItem('authToken',res.data.token);
             localStorage.setItem('user',JSON.stringify(res.data.user))

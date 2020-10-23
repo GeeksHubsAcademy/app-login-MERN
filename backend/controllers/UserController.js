@@ -1,7 +1,15 @@
 import UserModel from '../models/User.js';
 const UserController = {
+    getAll(req, res) {
+        UserModel.find().then(users => res.send(users))
+            .catch(error => {
+                console.error(error);
+                res.status(500).send({ message: 'There was a problem trying to get the users', error })
+            })
+    },
     async register(req, res) {
         try {
+            req.body.role = 'user'; //Mejor que poner default en el modelo por seguridad
             const user = await UserModel.create(req.body);
             res.status(201).send(user)
         } catch (error) {

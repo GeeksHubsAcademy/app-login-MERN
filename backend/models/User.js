@@ -18,8 +18,18 @@ const UserSchema = new mongoose.Schema({
             message: () => `La contraseña debe contener al menos una minúscula, una mayúscula, un número,un carácter especial, y debe estar entre 8 y 10 carácteres de longitud!`
         },
     },
+    role: {
+        type: String,
+        enum: ['admin', 'user', 'doctor', 'Dios'],
+    },
     tokens: [String]
 });
+UserSchema.methods.toJSON = function(params) {
+    const user = this.toObject();
+    delete user.password;
+    delete user.tokens;
+    return user;
+}
 UserSchema.pre('save', async function(next) {
     const user = this;
     user.password = await bcrypt.hash(user.password, 9);
