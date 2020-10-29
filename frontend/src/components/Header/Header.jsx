@@ -1,23 +1,25 @@
 import React from 'react';
 import { Link } from 'react-router-dom'
 import './Header.scss';
-
+import { connect } from 'react-redux';
+import { LOGOUT } from '../../redux/types';
 // const Header = (props) => {
-    const Header = ({user,setUser}) => {
+const Header = (props) => {
     const logout = () => {
         localStorage.clear();
         // props.setUser(null)
-        setUser(null)
+        // setUser(null)
+        props.dispatch({ type: LOGOUT, payload:{}});
     }
     return (
         <header className="header">
             <Link to="/">Home</Link>
             {/* {props.user ? */}
-            {user ?
+            {props.user?.email ?
                 <div className="loggedIn">
-                {['admin','Dios'].includes(user.role) &&<Link to="/users">users</Link> }
-                {/* {['doctores','becarios'].includes(user.role) &&<Link to="/pacientes">pacientes</Link> } */}
-                    <Link to="/profile">{user.email} - {user.role}</Link>
+                    {['admin', 'Dios'].includes(props.user.role) && <Link to="/users">users</Link>}
+                    {/* {['doctores','becarios'].includes(props.user.role) &&<Link to="/pacientes">pacientes</Link> } */}
+                    <Link to="/profile">{props.user.email} - {props.user.role}</Link>
                     <span className="logout" onClick={logout}>Logout</span>
                 </div> :
                 <div className="notLoggedIn">
@@ -28,4 +30,11 @@ import './Header.scss';
         </header>
     )
 }
-export default Header;
+
+const mapStateToProps = state => {
+    return {
+        user: state.user
+    }
+}
+
+export default connect(mapStateToProps)(Header);
