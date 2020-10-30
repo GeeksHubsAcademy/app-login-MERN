@@ -1,25 +1,31 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-
-const Users = () => {
-    const [users, setUsers] = useState([]);
+import { connect } from 'react-redux';
+import { GET_ALL_USERS } from '../../redux/types';
+const Users = (props) => {
     useEffect(() => {
         const token = localStorage.getItem('authToken');
-        axios.get(process.env.REACT_APP_BASE_URL+'/users',{
-            headers:{
-                Authorization:token
+        axios.get(process.env.REACT_APP_BASE_URL + '/users', {
+            headers: {
+                Authorization: token
             }
-        }).then(res=>setUsers(res.data));
+        }).then(res => props.dispatch({ type: GET_ALL_USERS, payload: res.data }));
     }, [])
-    
+
     return (
         <div className="user-list">
-            {users.map(user=><div className="user" key={user._id}>
-               <span>Nombre : {user.name}</span> 
-               <span>Email : {user.email}</span>
+            {props.users?.map(user => <div className="user" key={user._id}>
+                <span>Nombre : {user.name}</span>
+                <span>Email : {user.email}</span>
             </div>)}
         </div>
     )
 }
 
-export default Users
+const mapStateToProps = state => {
+    return {
+        users:state.users
+    }
+}
+
+export default connect(mapStateToProps)(Users);

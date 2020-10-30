@@ -1,8 +1,13 @@
 import React from 'react'
+import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
 const PrivateZone = (props) => {
-    return props.user ? props.children : <Redirect to='/login' />
+    return props.user?.email ? props.children : <Redirect to='/login' />
 }
-
-export default PrivateZone;
+const mapStateToProps = state => {
+    return {
+        user: state.user
+    }
+}
+export default connect(mapStateToProps)(PrivateZone);

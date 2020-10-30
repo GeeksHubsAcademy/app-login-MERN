@@ -6,5 +6,5 @@ const router = express.Router();
 router.get('/', auth, checkRole(['Dios', 'admin']), UserController.getAll);
 router.post('/register', UserController.register)
 router.post('/login', UserController.login);
-router.get('/profile', auth, (req, res) => res.send(req.user))
+router.get('/profile', auth, UserController.getProfile)
 export default router;

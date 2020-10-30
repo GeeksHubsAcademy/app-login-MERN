@@ -1,23 +1,26 @@
 const {
     LOGIN,
-    LOGOUT
+    LOGOUT,
+    GET_PROFILE,
+    GET_ALL_USERS
 } = require("./types");
 
 const initialState = {
+    users: [],
     user: {}
 };
 const reducer = (state = initialState, action) => {
     switch (action.type) {
-        case LOGIN:
+        case LOGIN, GET_PROFILE, LOGOUT:
             return {
                 ...state,
                 user: action.payload
             };
-        case LOGOUT:
+        case GET_ALL_USERS:
             return {
                 ...state,
-                user: action.payload
-            };
+                users: action.payload
+            }
         default:
             return state;
     }

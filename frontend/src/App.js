@@ -14,6 +14,7 @@ import Error404 from './containers/Error404/Error404.jsx';
 import UserList from './containers/UserList/UserList';
 import CheckPrivileges from './guards/CheckPrivileges';
 import { useDispatch } from 'react-redux';
+import { GET_PROFILE } from './redux/types';
 function App() {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -25,7 +26,7 @@ function App() {
         }
       })
       .then(res => {
-        dispatch({type:'LOGIN',payload:res.data})
+        dispatch({ type: GET_PROFILE, payload: res.data })
       })
   }, [])
   return (
@@ -38,8 +39,8 @@ function App() {
         <PrivateZone>
           <CheckPrivileges roles={['admin', 'Dios']}>
             <Route path='/profile' exact><Profile /></Route>
+            <Route path='/users' component={UserList} exact />
           </CheckPrivileges>
-          <Route path='/users' component={UserList} exact />
         </PrivateZone>
 
         <Route path='/*' component={Error404} exact />

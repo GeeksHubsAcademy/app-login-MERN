@@ -4,7 +4,10 @@ const UserController = {
         UserModel.find().then(users => res.send(users))
             .catch(error => {
                 console.error(error);
-                res.status(500).send({ message: 'There was a problem trying to get the users', error })
+                res.status(500).send({
+                    message: 'There was a problem trying to get the users',
+                    error
+                })
             })
     },
     async register(req, res) {
@@ -25,10 +28,16 @@ const UserController = {
                 });
             }
             const token = user.generateAuthToken();
-            res.send({ user, token });
+            res.send({
+                user,
+                token
+            });
         } catch (error) {
             res.status(400).send(error)
         }
+    },
+    getProfile(req, res) {
+        res.send(req.user)
     }
 }
 
