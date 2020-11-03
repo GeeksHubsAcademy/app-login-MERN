@@ -5,5 +5,6 @@ mongoose.connect(MongoURI, {
     useCreateIndex: true,
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    useFindAndModify: false
+    useFindAndModify: false,
 }).then(() => console.log('Connected successfully to MongoDB ' + MongoURI))
+mongoose.set('debug', true);

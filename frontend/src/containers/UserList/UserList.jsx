@@ -1,16 +1,17 @@
 import React, { useEffect } from 'react'
-import { connect } from 'react-redux';
+import {  useSelector } from 'react-redux';
 import UserItem from '../../components/UserItem/UserItem';
-import { getAllUsers } from '../../redux/actions';
+import { getAllUsers } from '../../redux/actions/users';
 const Users = (props) => {
+    const users = useSelector(({ users }) => users)
     useEffect(() => {
         getAllUsers()
-        .catch(error=> console.error(error))
-        }, [])
+            .catch(error => console.error(error))
+    }, [])
 
     return (
         <div className="user-list">
-            {props.users?.map(user => <UserItem user={user}/>)}
+            {users?.map(user => <UserItem user={user} />)}
         </div>
     )
 }
@@ -19,6 +20,8 @@ const Users = (props) => {
 //         users:state.users
 //     }
 // }
-const mapStateToProps = ({users}) => ({users});
+// const mapStateToProps = ({users}) => ({users});
 
-export default connect(mapStateToProps)(Users);
+// export default connect(mapStateToProps)(Users);
+
+export default Users;

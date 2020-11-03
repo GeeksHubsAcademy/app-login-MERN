@@ -3,7 +3,7 @@ const {
     LOGOUT,
     GET_PROFILE,
     GET_ALL_USERS
-} = require("./types");
+} = require("../types");
 
 const initialState = {
     users: [],
