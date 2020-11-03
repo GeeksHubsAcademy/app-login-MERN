@@ -7,7 +7,7 @@ const PrivateZone = (props) => {
 }
 const mapStateToProps = state => {
     return {
-        user: state.user
+        user: state.user?.user
     }
 }
 export default connect(mapStateToProps)(PrivateZone);

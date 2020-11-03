@@ -3,7 +3,7 @@ import {  useSelector } from 'react-redux';
 import UserItem from '../../components/UserItem/UserItem';
 import { getAllUsers } from '../../redux/actions/users';
 const Users = (props) => {
-    const users = useSelector(({ users }) => users)
+    const users = useSelector(({ user }) => user.users)
     useEffect(() => {
         getAllUsers()
             .catch(error => console.error(error))
@@ -17,10 +17,10 @@ const Users = (props) => {
 }
 // const mapStateToProps = state => {
 //     return {
-//         users:state.users
+//         users:state.user.users
 //     }
 // }
-// const mapStateToProps = ({users}) => ({users});
+// const mapStateToProps = ({user}) => ({users:user.users});
 
 // export default connect(mapStateToProps)(Users);
 
