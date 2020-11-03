@@ -14,11 +14,11 @@ const Users = (props) => {
         </div>
     )
 }
-
-const mapStateToProps = state => {
-    return {
-        users:state.users
-    }
-}
+// const mapStateToProps = state => {
+//     return {
+//         users:state.users
+//     }
+// }
+const mapStateToProps = ({users}) => ({users});
 
 export default connect(mapStateToProps)(Users);
