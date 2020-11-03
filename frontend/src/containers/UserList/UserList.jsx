@@ -1,23 +1,16 @@
-import axios from 'axios'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { connect } from 'react-redux';
-import { GET_ALL_USERS } from '../../redux/types';
+import UserItem from '../../components/UserItem/UserItem';
+import { getAllUsers } from '../../redux/actions';
 const Users = (props) => {
     useEffect(() => {
-        const token = localStorage.getItem('authToken');
-        axios.get(process.env.REACT_APP_BASE_URL + '/users', {
-            headers: {
-                Authorization: token
-            }
-        }).then(res => props.dispatch({ type: GET_ALL_USERS, payload: res.data }));
-    }, [])
+        getAllUsers()
+        .catch(error=> console.error(error))
+        }, [])
 
     return (
         <div className="user-list">
-            {props.users?.map(user => <div className="user" key={user._id}>
-                <span>Nombre : {user.name}</span>
-                <span>Email : {user.email}</span>
-            </div>)}
+            {props.users?.map(user => <UserItem user={user}/>)}
         </div>
     )
 }

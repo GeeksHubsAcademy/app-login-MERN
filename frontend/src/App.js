@@ -19,15 +19,17 @@ function App() {
   const dispatch = useDispatch();
   useEffect(() => {
     const token = localStorage.getItem('authToken')
-    axios.get(process.env.REACT_APP_BASE_URL + '/users/profile',
-      {
-        headers: {
-          Authorization: token
-        }
-      })
-      .then(res => {
-        dispatch({ type: GET_PROFILE, payload: res.data })
-      })
+    if (token) {
+      axios.get(process.env.REACT_APP_BASE_URL + '/users/profile',
+        {
+          headers: {
+            Authorization: token
+          }
+        })
+        .then(res => {
+          dispatch({ type: GET_PROFILE, payload: res.data })
+        })
+    }
   }, [])
   return (
     <BrowserRouter>
