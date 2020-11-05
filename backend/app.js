@@ -1,5 +1,7 @@
 import express from "express";
 import morgan from 'morgan';
+import dotenv from 'dotenv-flow';
+dotenv.config();
 import './config/mongoose.js';
 import cors from "./middleware/cors.js";
 import usersRouter from './routes/users.js'
@@ -15,3 +17,5 @@ app.use('/users', usersRouter);
 app.use('/movies', moviesRouter);
 
 app.listen(PORT, () => console.log('server running on PORT ' + PORT));
+
+export default app;
