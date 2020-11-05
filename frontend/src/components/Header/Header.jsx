@@ -4,7 +4,7 @@ import './Header.scss';
 import { connect } from 'react-redux';
 import { LOGOUT } from '../../redux/types';
 // const Header = (props) => {
-const Header = (props) => {
+export const Header = (props) => {
     const logout = () => {
         localStorage.clear();
         // props.setUser(null)
